@@ -79,7 +79,7 @@ $PYTHON setup.py clean
 
 if [ -z "$DISABLE_TESTS" ]; then
     #For now failed tests are accepted until all are fixed
-    $PYTHON setup.py test || true
+    $PYTHON setup.py test
 fi
 
 $PYTHON setup.py bdist_wheel
