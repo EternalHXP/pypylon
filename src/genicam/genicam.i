@@ -155,6 +155,10 @@ typedef unsigned long long uintmax_t;
 
 /* Exact integral types.  */
 
+#if !defined(SWIGWORDSIZE64) && !defined(SWIGWORDSIZE32)
+#error "This wrapper requires either SWIGWORDSIZE64 or SWIGWORDSIZE32 to be defined on the command line."
+#endif
+
 /* Signed.  */
 typedef signed char             int8_t;
 typedef short int               int16_t;

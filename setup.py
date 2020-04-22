@@ -109,6 +109,8 @@ class BuildSupport(object):
         if sys.version_info[0] == 3:
             self.SwigOptions.append("-py3")
 
+        self.SwigOptions.append("-DSWIGWORDSIZE%i" % (get_machinewidth(),) )
+
     def dump(self):
         for a in dir(self):
             info("%s=%s" % (a, getattr(self, a)))
