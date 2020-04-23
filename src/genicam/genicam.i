@@ -104,6 +104,15 @@ using namespace GENAPI_NAMESPACE;
 //////  stdint ////////
 ///////////////////////
 
+%{
+#ifdef _WIN32
+#include <limits.h>
+#if defined(SWIGWORDSIZE64) && __WORDSIZE != 64
+#error __Wordsize is not 64
+#endif
+#endif
+%}
+
 
 %include <swigarch.i>
 
