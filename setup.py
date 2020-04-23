@@ -109,8 +109,6 @@ class BuildSupport(object):
         if sys.version_info[0] == 3:
             self.SwigOptions.append("-py3")
 
-        self.SwigOptions.append("-DSWIGWORDSIZE%i" % (get_machinewidth(),) )
-
     def dump(self):
         for a in dir(self):
             info("%s=%s" % (a, getattr(self, a)))
@@ -608,13 +606,15 @@ class BuildSupportLinux(BuildSupport):
     def __init__(self):
         super(BuildSupportLinux, self).__init__()
         self.SwigExe = self.find_swig()
+
+        self.SwigOptions.append("-DSWIGWORDSIZE%i" % (get_machinewidth(),) )
+
         config_cflags = self.call_pylon_config("--cflags")
         self.ExtraCompileArgs.extend(config_cflags.split())
         print("ExtraCompileArgs:", self.ExtraCompileArgs)
         config_libs = self.call_pylon_config("--libs")
         self.ExtraLinkArgs.extend(config_libs.split())
         print("ExtraLinkArgs:", self.ExtraLinkArgs)
-
 
         config_libdir = self.call_pylon_config("--libdir")
         self.LibraryDirs.extend(config_libdir.split())
@@ -714,6 +714,9 @@ class BuildSupportMacOS(BuildSupport):
     def __init__(self):
         super(BuildSupportMacOS, self).__init__()
         self.SwigExe = self.find_swig()
+
+        self.SwigOptions.append("-DSWIGWORDSIZE%i" % (get_machinewidth(),) )
+
         includes_dir = os.path.abspath(
             os.path.join('.' , "osx_includes")
             )

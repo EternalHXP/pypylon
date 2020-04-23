@@ -104,19 +104,14 @@ using namespace GENAPI_NAMESPACE;
 //////  stdint ////////
 ///////////////////////
 
-%{
-#ifdef _WIN32
-#include <limits.h>
-#if defined(SWIGWORDSIZE64) && __WORDSIZE != 64
-#error __Wordsize is not 64
-#endif
-#endif
-%}
-
 
 %include <swigarch.i>
 
 #ifdef _WIN32
+
+#if defined(SWIGWORDSIZE64) || defined(SWIGWORDSIZE32)
+#error "On windows SWIGWORDSIZE32/64 must not be used as it is not correctly implemented in swig."
+#endif
 
 typedef signed char        int8_t;
 typedef short              int16_t;
@@ -165,7 +160,7 @@ typedef unsigned long long uintmax_t;
 /* Exact integral types.  */
 
 #if !defined(SWIGWORDSIZE64) && !defined(SWIGWORDSIZE32)
-#error "This wrapper requires either SWIGWORDSIZE64 or SWIGWORDSIZE32 to be defined on the command line."
+#error "On linux either SWIGWORDSIZE64 or SWIGWORDSIZE32 must be defined on the command line."
 #endif
 
 /* Signed.  */
